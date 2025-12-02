@@ -11,11 +11,13 @@ pub fn is_valid(num: usize) !bool {
         const pattern = seq[0..(divisor - i)];
 
         if (seq.len % pattern.len == 0) {
-            if (for (0..seq.len / pattern.len) |j| {
+            const match = for (0..seq.len / pattern.len) |j| {
                 if (!std.mem.eql(u8, seq[j * pattern.len .. (j + 1) * pattern.len], pattern)) {
                     break false;
                 }
-            } else true) {
+            } else true;
+
+            if (match) {
                 return false;
             }
         }
